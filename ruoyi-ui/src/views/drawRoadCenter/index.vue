@@ -1,6 +1,6 @@
 <template>
   <div>
-    <amap :path="path" ref="mmap"></amap>
+    <amap :path="path" :data="roadid" ref="mmap"></amap>
 
   </div>
 
@@ -13,7 +13,8 @@ export default {
   components: {amap},
   data() {
     return {
-      path: []
+      path: [],
+      roadid: {}
     }
   },
 
@@ -28,9 +29,21 @@ export default {
           result[item.roadid].push([item.gaodeX, item.gaodeY])
         }
       })
-      Object.values(result).forEach(item => {
-        this.path.push(item)
+      console.log("fs",result)
+      // for ([k,v] of result){
+      //   this.path = v
+      //   this.data= {
+      //     id: k
+      //   }
+      // }
+      Object.entries(result).forEach(item => {
+        this.path = item[1]
+        this.data= {
+          id: item[0]
+        }
+
       })
+
       console.log(this.path)
     })
 

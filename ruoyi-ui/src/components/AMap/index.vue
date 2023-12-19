@@ -19,6 +19,10 @@ export default {
     path: {
       type: Array,
       default: ()=>[]
+    },
+    data: {
+      type: Object,
+      default: ()=>{}
     }
   },
   data() {
@@ -28,18 +32,34 @@ export default {
 
   methods:{
     drawPolyLine(){
+      console.log(this.path)
+      if(AMap){
+        var polyline = new AMap.Polyline({
+          path: this.path,          // 设置线覆盖物路径
+          strokeColor: "#3366FF", // 线颜色
+          strokeWeight: 5,        // 线宽
+          strokeStyle: "solid",   // 线样式
+          extData: this.data
+        });
+        this.map.add(polyline);
+        polyline.on("click", this.polyClick);
+      }
 
-      var polyline = new AMap.Polyline({
-        path: this.path,          // 设置线覆盖物路径
-        strokeColor: "#3366FF", // 线颜色
-        strokeWeight: 5,        // 线宽
-        strokeStyle: "solid",   // 线样式
-      });
-      this.map.add(polyline);
+
+    },
+    polyClick(e){
+      console.log(e)
+      console.log(e.target.getExtData())
     }
 
   },
-
+  watch: {
+    path: function (newVal, oldVal) {
+      this.drawPolyLine();
+    },
+    deep: true,
+    immediate: true
+  },
   mounted() {
     AMapLoader.load({
       key: "0e3cd32e0bea1bf2575360713b2df0e7", // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -53,7 +73,6 @@ export default {
           zoom: this.zoom, // 初始化地图级别
           center: this.center, // 初始化地图中心点位置
         });
-        this.drawPolyLine();
       })
       .catch((e) => {
         console.log(e);
