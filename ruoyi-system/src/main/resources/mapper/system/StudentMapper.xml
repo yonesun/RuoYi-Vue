@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.Student">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="belTeacher" column="bel_teacher" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,age,
+        bel_teacher
+    </sql>
+
+    <select id="selectStudent" resultType="com.ruoyi.system.domain.Student">
+        select * from student where bel_teacher=#{id}
+    </select>
+</mapper>

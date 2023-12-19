@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AllRoadCoordinateNetworkMapper">
+    
+    <resultMap type="AllRoadCoordinateNetwork" id="AllRoadCoordinateNetworkResult">
+        <result property="id"    column="id"    />
+        <result property="gaodeX"    column="gaode_x"    />
+        <result property="gaodeY"    column="gaode_y"    />
+        <result property="roadid"    column="roadid"    />
+    </resultMap>
+
+    <sql id="selectAllRoadCoordinateNetworkVo">
+        select id, gaode_x, gaode_y, roadid from all_road_coordinate_network
+    </sql>
+
+    <select id="selectAllRoadCoordinateNetworkList" parameterType="AllRoadCoordinateNetwork" resultMap="AllRoadCoordinateNetworkResult">
+        <include refid="selectAllRoadCoordinateNetworkVo"/>
+        <where>  
+            <if test="gaodeX != null "> and gaode_x = #{gaodeX}</if>
+            <if test="gaodeY != null "> and gaode_y = #{gaodeY}</if>
+            <if test="roadid != null  and roadid != ''"> and roadid = #{roadid}</if>
+        </where>
+    </select>
+    
+    <select id="selectAllRoadCoordinateNetworkById" parameterType="Long" resultMap="AllRoadCoordinateNetworkResult">
+        <include refid="selectAllRoadCoordinateNetworkVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAllRoadCoordinateNetwork" parameterType="AllRoadCoordinateNetwork" useGeneratedKeys="true" keyProperty="id">
+        insert into all_road_coordinate_network
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gaodeX != null">gaode_x,</if>
+            <if test="gaodeY != null">gaode_y,</if>
+            <if test="roadid != null">roadid,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gaodeX != null">#{gaodeX},</if>
+            <if test="gaodeY != null">#{gaodeY},</if>
+            <if test="roadid != null">#{roadid},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAllRoadCoordinateNetwork" parameterType="AllRoadCoordinateNetwork">
+        update all_road_coordinate_network
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="gaodeX != null">gaode_x = #{gaodeX},</if>
+            <if test="gaodeY != null">gaode_y = #{gaodeY},</if>
+            <if test="roadid != null">roadid = #{roadid},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAllRoadCoordinateNetworkById" parameterType="Long">
+        delete from all_road_coordinate_network where id = #{id}
+    </delete>
+
+    <delete id="deleteAllRoadCoordinateNetworkByIds" parameterType="String">
+        delete from all_road_coordinate_network where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
