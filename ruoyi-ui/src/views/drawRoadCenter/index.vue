@@ -1,6 +1,6 @@
 <template>
   <div>
-    <amap :path="path" :data="roadid" ref="mmap"></amap>
+    <amap @do="drawLine" ref="mmap"></amap>
 
   </div>
 
@@ -17,35 +17,52 @@ export default {
       roadid: {}
     }
   },
+  methods: {
+    drawLine() {
+      let result = {}
+      let param = {
+        dataflag: 1,
+        version: 'v7'
+      }
+      listNetwork(param).then(res => {
+        res.rows.forEach(item => {
+          if(!result[item.roadid+'-'+item.cluster]){
+            result[item.roadid+'-'+item.cluster]= []
+            result[item.roadid+'-'+item.cluster].push([item.gaodeX, item.gaodeY])
+          }else {
+            result[item.roadid+'-'+item.cluster].push([item.gaodeX, item.gaodeY])
+          }
+        })
+
+      // listNetwork(param).then(res => {
+      //   res.rows.forEach(item => {
+      //     if(!result[item.roadid]){
+      //       result[item.roadid]= []
+      //       result[item.roadid].push([item.gaodeX, item.gaodeY])
+      //     }else {
+      //       result[item.roadid].push([item.gaodeX, item.gaodeY])
+      //     }
+      //   })
+
+        Object.entries(result).forEach(item => {
+          console.log("f", item)
+          if(item[1].length>1){
+            let obj = {
+              path:item[1],
+              id:item[0],
+              length: item[1].length
+            }
+            // this.$refs.mmap.justifyRoute(obj.path)
+            this.$refs.mmap.drawPolyLine(obj)
+          }
+
+        })
+        console.log(this.path)
+      })
+    }
+  },
 
   mounted() {
-    let result = {}
-    listNetwork().then(res => {
-      res.rows.forEach(item => {
-        if(!result[item.roadid]){
-            result[item.roadid]= []
-            result[item.roadid].push([item.gaodeX, item.gaodeY])
-        }else {
-          result[item.roadid].push([item.gaodeX, item.gaodeY])
-        }
-      })
-      console.log("fs",result)
-      // for ([k,v] of result){
-      //   this.path = v
-      //   this.data= {
-      //     id: k
-      //   }
-      // }
-      Object.entries(result).forEach(item => {
-        this.path = item[1]
-        this.data= {
-          id: item[0]
-        }
-
-      })
-
-      console.log(this.path)
-    })
 
   }
 

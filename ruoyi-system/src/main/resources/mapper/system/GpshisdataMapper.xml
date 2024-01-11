@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GpshisdataMapper">
+    
+    <resultMap type="Gpshisdata" id="GpshisdataResult">
+        <result property="VEHICLENO"    column="VEHICLENO"    />
+        <result property="DATATIME"    column="DATATIME"    />
+        <result property="SIMCARDNO"    column="SIMCARDNO"    />
+        <result property="ISRELIABLE"    column="ISRELIABLE"    />
+        <result property="LONGITUDE"    column="LONGITUDE"    />
+        <result property="LATITUDE"    column="LATITUDE"    />
+        <result property="SPEED"    column="SPEED"    />
+        <result property="VEHICLEANGLE"    column="VEHICLEANGLE"    />
+        <result property="VEHICLEALARM"    column="VEHICLEALARM"    />
+        <result property="WORKALARM"    column="WORKALARM"    />
+        <result property="ROADID"    column="ROADID"    />
+        <result property="ROADDIRECTION"    column="ROADDIRECTION"    />
+        <result property="BEFLONGITUDE"    column="BEFLONGITUDE"    />
+        <result property="BEFLATITUDE"    column="BEFLATITUDE"    />
+        <result property="ROADLOCATION"    column="ROADLOCATION"    />
+        <result property="gaodeX"    column="GAODE_X"    />
+        <result property="gaodeY"    column="GAODE_Y"    />
+        <result property="gjId"    column="GJ_ID"    />
+        <result property="gjDir"    column="GJ_DIR"    />
+        <result property="gjStake"    column="GJ_STAKE"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectGpshisdataVo">
+        select VEHICLENO, DATATIME, SIMCARDNO, ISRELIABLE, LONGITUDE, LATITUDE, SPEED, VEHICLEANGLE, VEHICLEALARM, WORKALARM, ROADID, ROADDIRECTION, BEFLONGITUDE, BEFLATITUDE, ROADLOCATION, GAODE_X, GAODE_Y, GJ_ID, GJ_DIR, GJ_STAKE, create_time from gpshisdata
+    </sql>
+
+    <select id="selectGpshisdataList" parameterType="Gpshisdata" resultMap="GpshisdataResult">
+        <include refid="selectGpshisdataVo"/>
+        <where>  
+            <if test="VEHICLENO != null  and VEHICLENO != ''"> and VEHICLENO = #{VEHICLENO}</if>
+            <if test="DATATIME != null "> and DATATIME = #{DATATIME}</if>
+            <if test="SIMCARDNO != null  and SIMCARDNO != ''"> and SIMCARDNO = #{SIMCARDNO}</if>
+            <if test="ISRELIABLE != null  and ISRELIABLE != ''"> and ISRELIABLE = #{ISRELIABLE}</if>
+            <if test="LONGITUDE != null  and LONGITUDE != ''"> and LONGITUDE = #{LONGITUDE}</if>
+            <if test="LATITUDE != null  and LATITUDE != ''"> and LATITUDE = #{LATITUDE}</if>
+            <if test="SPEED != null "> and SPEED = #{SPEED}</if>
+            <if test="VEHICLEANGLE != null "> and VEHICLEANGLE = #{VEHICLEANGLE}</if>
+            <if test="VEHICLEALARM != null "> and VEHICLEALARM = #{VEHICLEALARM}</if>
+            <if test="WORKALARM != null "> and WORKALARM = #{WORKALARM}</if>
+            <if test="ROADID != null  and ROADID != ''"> and ROADID = #{ROADID}</if>
+            <if test="ROADDIRECTION != null  and ROADDIRECTION != ''"> and ROADDIRECTION = #{ROADDIRECTION}</if>
+            <if test="BEFLONGITUDE != null "> and BEFLONGITUDE = #{BEFLONGITUDE}</if>
+            <if test="BEFLATITUDE != null "> and BEFLATITUDE = #{BEFLATITUDE}</if>
+            <if test="ROADLOCATION != null "> and ROADLOCATION = #{ROADLOCATION}</if>
+            <if test="gaodeX != null "> and GAODE_X = #{gaodeX}</if>
+            <if test="gaodeY != null "> and GAODE_Y = #{gaodeY}</if>
+            <if test="gjId != null  and gjId != ''"> and GJ_ID = #{gjId}</if>
+            <if test="gjDir != null  and gjDir != ''"> and GJ_DIR = #{gjDir}</if>
+            <if test="gjStake != null  and gjStake != ''"> and GJ_STAKE = #{gjStake}</if>
+        </where>
+    </select>
+    
+    <select id="selectGpshisdataByVEHICLENO" parameterType="String" resultMap="GpshisdataResult">
+        <include refid="selectGpshisdataVo"/>
+        where VEHICLENO = #{VEHICLENO}
+    </select>
+        
+    <insert id="insertGpshisdata" parameterType="Gpshisdata">
+        insert into gpshisdata
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="VEHICLENO != null">VEHICLENO,</if>
+            <if test="DATATIME != null">DATATIME,</if>
+            <if test="SIMCARDNO != null">SIMCARDNO,</if>
+            <if test="ISRELIABLE != null">ISRELIABLE,</if>
+            <if test="LONGITUDE != null">LONGITUDE,</if>
+            <if test="LATITUDE != null">LATITUDE,</if>
+            <if test="SPEED != null">SPEED,</if>
+            <if test="VEHICLEANGLE != null">VEHICLEANGLE,</if>
+            <if test="VEHICLEALARM != null">VEHICLEALARM,</if>
+            <if test="WORKALARM != null">WORKALARM,</if>
+            <if test="ROADID != null">ROADID,</if>
+            <if test="ROADDIRECTION != null">ROADDIRECTION,</if>
+            <if test="BEFLONGITUDE != null">BEFLONGITUDE,</if>
+            <if test="BEFLATITUDE != null">BEFLATITUDE,</if>
+            <if test="ROADLOCATION != null">ROADLOCATION,</if>
+            <if test="gaodeX != null">GAODE_X,</if>
+            <if test="gaodeY != null">GAODE_Y,</if>
+            <if test="gjId != null">GJ_ID,</if>
+            <if test="gjDir != null">GJ_DIR,</if>
+            <if test="gjStake != null">GJ_STAKE,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="VEHICLENO != null">#{VEHICLENO},</if>
+            <if test="DATATIME != null">#{DATATIME},</if>
+            <if test="SIMCARDNO != null">#{SIMCARDNO},</if>
+            <if test="ISRELIABLE != null">#{ISRELIABLE},</if>
+            <if test="LONGITUDE != null">#{LONGITUDE},</if>
+            <if test="LATITUDE != null">#{LATITUDE},</if>
+            <if test="SPEED != null">#{SPEED},</if>
+            <if test="VEHICLEANGLE != null">#{VEHICLEANGLE},</if>
+            <if test="VEHICLEALARM != null">#{VEHICLEALARM},</if>
+            <if test="WORKALARM != null">#{WORKALARM},</if>
+            <if test="ROADID != null">#{ROADID},</if>
+            <if test="ROADDIRECTION != null">#{ROADDIRECTION},</if>
+            <if test="BEFLONGITUDE != null">#{BEFLONGITUDE},</if>
+            <if test="BEFLATITUDE != null">#{BEFLATITUDE},</if>
+            <if test="ROADLOCATION != null">#{ROADLOCATION},</if>
+            <if test="gaodeX != null">#{gaodeX},</if>
+            <if test="gaodeY != null">#{gaodeY},</if>
+            <if test="gjId != null">#{gjId},</if>
+            <if test="gjDir != null">#{gjDir},</if>
+            <if test="gjStake != null">#{gjStake},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGpshisdata" parameterType="Gpshisdata">
+        update gpshisdata
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="DATATIME != null">DATATIME = #{DATATIME},</if>
+            <if test="SIMCARDNO != null">SIMCARDNO = #{SIMCARDNO},</if>
+            <if test="ISRELIABLE != null">ISRELIABLE = #{ISRELIABLE},</if>
+            <if test="LONGITUDE != null">LONGITUDE = #{LONGITUDE},</if>
+            <if test="LATITUDE != null">LATITUDE = #{LATITUDE},</if>
+            <if test="SPEED != null">SPEED = #{SPEED},</if>
+            <if test="VEHICLEANGLE != null">VEHICLEANGLE = #{VEHICLEANGLE},</if>
+            <if test="VEHICLEALARM != null">VEHICLEALARM = #{VEHICLEALARM},</if>
+            <if test="WORKALARM != null">WORKALARM = #{WORKALARM},</if>
+            <if test="ROADID != null">ROADID = #{ROADID},</if>
+            <if test="ROADDIRECTION != null">ROADDIRECTION = #{ROADDIRECTION},</if>
+            <if test="BEFLONGITUDE != null">BEFLONGITUDE = #{BEFLONGITUDE},</if>
+            <if test="BEFLATITUDE != null">BEFLATITUDE = #{BEFLATITUDE},</if>
+            <if test="ROADLOCATION != null">ROADLOCATION = #{ROADLOCATION},</if>
+            <if test="gaodeX != null">GAODE_X = #{gaodeX},</if>
+            <if test="gaodeY != null">GAODE_Y = #{gaodeY},</if>
+            <if test="gjId != null">GJ_ID = #{gjId},</if>
+            <if test="gjDir != null">GJ_DIR = #{gjDir},</if>
+            <if test="gjStake != null">GJ_STAKE = #{gjStake},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where VEHICLENO = #{VEHICLENO}
+    </update>
+
+    <delete id="deleteGpshisdataByVEHICLENO" parameterType="String">
+        delete from gpshisdata where VEHICLENO = #{VEHICLENO}
+    </delete>
+
+    <delete id="deleteGpshisdataByVEHICLENOs" parameterType="String">
+        delete from gpshisdata where VEHICLENO in 
+        <foreach item="VEHICLENO" collection="array" open="(" separator="," close=")">
+            #{VEHICLENO}
+        </foreach>
+    </delete>
+</mapper>

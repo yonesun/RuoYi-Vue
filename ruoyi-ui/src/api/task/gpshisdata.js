@@ -1,51 +1,44 @@
 import request from '@/utils/request'
 
 // 查询【请填写功能名称】列表
-export function listNetwork(query) {
+export function listGpshisdata(query) {
   return request({
-    url: '/system/network/list',
+    url: '/system/gpshisdata/list',
     method: 'get',
     params: query
   })
 }
 
 // 查询【请填写功能名称】详细
-export function getNetwork(id) {
+export function getGpshisdata(VEHICLENO) {
   return request({
-    url: '/system/network/' + id,
-    method: 'get'
-  })
-}
-
-export function getNetworkByDataflag(dataflag) {
-  return request({
-    url: '/system/network/' + dataflag,
+    url: '/system/gpshisdata/' + VEHICLENO,
     method: 'get'
   })
 }
 
 // 新增【请填写功能名称】
-export function addNetwork(data) {
+export function addGpshisdata(data) {
   return request({
-    url: '/system/network',
+    url: '/system/gpshisdata',
     method: 'post',
     data: data
   })
 }
 
 // 修改【请填写功能名称】
-export function updateNetwork(data) {
+export function updateGpshisdata(data) {
   return request({
-    url: '/system/network',
+    url: '/system/gpshisdata',
     method: 'put',
     data: data
   })
 }
 
 // 删除【请填写功能名称】
-export function delNetwork(id) {
+export function delGpshisdata(VEHICLENO) {
   return request({
-    url: '/system/network/' + id,
+    url: '/system/gpshisdata/' + VEHICLENO,
     method: 'delete'
   })
 }

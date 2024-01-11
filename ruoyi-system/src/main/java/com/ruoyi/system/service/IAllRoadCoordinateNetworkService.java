@@ -19,6 +19,7 @@ public interface IAllRoadCoordinateNetworkService
      */
     public AllRoadCoordinateNetwork selectAllRoadCoordinateNetworkById(Long id);
 
+    public List<AllRoadCoordinateNetwork> selectAllRoadCoordinateNetworkBydataflag(Long dataflag);
     /**
      * 查询【请填写功能名称】列表
      * 

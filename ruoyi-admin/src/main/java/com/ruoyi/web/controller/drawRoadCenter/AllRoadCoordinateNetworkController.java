@@ -68,6 +68,12 @@ public class AllRoadCoordinateNetworkController extends BaseController
         return success(allRoadCoordinateNetworkService.selectAllRoadCoordinateNetworkById(id));
     }
 
+    @GetMapping(value = "/{dataflag}")
+    public AjaxResult getDataByFlag(@PathVariable("dataflag") Long dataflag)
+    {
+        return success(allRoadCoordinateNetworkService.selectAllRoadCoordinateNetworkBydataflag(dataflag));
+    }
+
     /**
      * 新增【请填写功能名称】
      */

@@ -9,10 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="gaodeX"    column="gaode_x"    />
         <result property="gaodeY"    column="gaode_y"    />
         <result property="roadid"    column="roadid"    />
+        <result property="version"    column="version"    />
+        <result property="dataflag"    column="dataflag"    />
+        <result property="cluster"    column="cluster"    />
     </resultMap>
 
     <sql id="selectAllRoadCoordinateNetworkVo">
-        select id, gaode_x, gaode_y, roadid from all_road_coordinate_network
+        select id, gaode_x, gaode_y, roadid, version, dataflag, cluster from all_road_coordinate_network
     </sql>
 
     <select id="selectAllRoadCoordinateNetworkList" parameterType="AllRoadCoordinateNetwork" resultMap="AllRoadCoordinateNetworkResult">
@@ -21,12 +24,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="gaodeX != null "> and gaode_x = #{gaodeX}</if>
             <if test="gaodeY != null "> and gaode_y = #{gaodeY}</if>
             <if test="roadid != null  and roadid != ''"> and roadid = #{roadid}</if>
+            <if test="dataflag!= null "> and dataflag = #{dataflag}</if>
+            <if test="version!= null "> and version = #{version}</if>
+            <if test="cluster!= null "> and cluster = #{cluster}</if>
         </where>
     </select>
     
     <select id="selectAllRoadCoordinateNetworkById" parameterType="Long" resultMap="AllRoadCoordinateNetworkResult">
         <include refid="selectAllRoadCoordinateNetworkVo"/>
         where id = #{id}
+    </select>
+    <select id="selectAllRoadCoordinateNetworkBydataflag" parameterType="Long" resultMap="AllRoadCoordinateNetworkResult">
+        <include refid="selectAllRoadCoordinateNetworkVo"/>
+        where dataflag = #{dataflag}
     </select>
         
     <insert id="insertAllRoadCoordinateNetwork" parameterType="AllRoadCoordinateNetwork" useGeneratedKeys="true" keyProperty="id">

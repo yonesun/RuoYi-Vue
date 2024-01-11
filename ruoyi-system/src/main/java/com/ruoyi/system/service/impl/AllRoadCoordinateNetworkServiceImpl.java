@@ -31,6 +31,11 @@ public class AllRoadCoordinateNetworkServiceImpl implements IAllRoadCoordinateNe
         return allRoadCoordinateNetworkMapper.selectAllRoadCoordinateNetworkById(id);
     }
 
+    @Override
+    public List<AllRoadCoordinateNetwork> selectAllRoadCoordinateNetworkBydataflag(Long dataflag)
+    {
+        return allRoadCoordinateNetworkMapper.selectAllRoadCoordinateNetworkBydataflag(dataflag);
+    }
     /**
      * 查询【请填写功能名称】列表
      * 
